@@ -1,0 +1,17 @@
+#Credentials and Configuration
+config/.env
+.env
+*.env
+
+#Virtual Enviroment and Local Media
+**/venv/
+**/devel_resources/
+
+#Local database
+*.db
+*.sqlite3
+
+#Cache and Pytest
+__pycache__/
+*.pyc
+.pytest_cache/
