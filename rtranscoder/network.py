@@ -15,11 +15,10 @@ class TranscoderNode:
         self.client: paramiko.SSHClient | None = None
 
     def open_connection(self, max_retries: int = 3) -> bool:
-        self.client = paramiko.SSHClient()
-        self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-
         for attempt in range(1, max_retries + 1):
             try:
+                self.client = paramiko.SSHClient()
+                self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
                 logger.info(f"[SSH] Trying to connect with {self.host_user}@{self.host_id} (attempt [{attempt}/{max_retries}])")
                 self.client.connect(
                         hostname=self.host_id,
