@@ -98,9 +98,11 @@ class TranscoderNode:
         safe_output = shlex.quote(output_file)
 
         ffmpeg_cmd = (
-                f"ffmpeg -y -i {safe_input} " # -y confirms the overwrite (if exists), -i {input} add the input of the command (file to transcode)
-                f"-c:v libx264 -preset fast -crf 22 " #-c:v libx264 uses the h.264(AVC) codec for video, -preset fast uses the fast preset in the transcode, -crf 22 Constant Rate Factor at 22 (sweet spot in the middle)
-                f"-c:a aac -b:a 192k " #-c:a aac uses the aac codec for audio, -b:a 192k bitrate audio at 192kbps
+                f"ffmpeg -y -i {safe_input} "# -y confirms the overwrite (if exists), -i {input} add the input of the command (file to transcode)
+                "-map 0:v:0 " #map the first video track 
+                "-map 0:a " #map all audio tracks
+                "-c:v libx264 -preset fast -crf 22 " #-c:v libx264 uses the h.264(AVC) codec for video, -preset fast uses the fast preset in the transcode, -crf 22 Constant Rate Factor at 22 (sweet spot in the middle)
+                "-c:a aac -b:a 192k " #-c:a aac uses the aac codec for audio, -b:a 192k bitrate audio at 192kbps
                 f"{safe_output}" #output of the transcoded file
                 )
         final_cmd = f"nice -n 19 {ffmpeg_cmd}"

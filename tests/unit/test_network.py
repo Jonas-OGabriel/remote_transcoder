@@ -175,6 +175,7 @@ def test_execute_remote_transcode_success(mock_execute_command, transcoder_node)
 
     expected_command = (
         "nice -n 19 ffmpeg -y -i '/media/Movie with Espace.mkv' "
+        "-map 0:v:0 -map 0:a "
         "-c:v libx264 -preset fast -crf 22 "
         "-c:a aac -b:a 192k "
         "'/media/Movie with Espace.mp4'"
